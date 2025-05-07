@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Animated Homepage</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      overflow: hidden;
+    }
+    #canvas {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="1170" height="2532"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.src = 'sprite_sheet.webp';
+
+    const FRAME_WIDTH = 1170;
+    const FRAME_HEIGHT = 2532;
+    const TOTAL_FRAMES = 20;
+    const frameDelay = 60;
+
+    let currentFrame = 0;
+
+    img.onload = () => {
+      setInterval(() => {
+        ctx.clearRect(0, 0, FRAME_WIDTH, FRAME_HEIGHT);
+        ctx.drawImage(
+          img,
+          0, currentFrame * FRAME_HEIGHT,
+          FRAME_WIDTH, FRAME_HEIGHT,
+          0, 0,
+          FRAME_WIDTH, FRAME_HEIGHT
+        );
+        currentFrame = (currentFrame + 1) % TOTAL_FRAMES;
+      }, frameDelay);
+    };
+  </script>
+</body>
+</html>
